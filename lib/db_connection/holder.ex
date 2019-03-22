@@ -248,6 +248,10 @@ defmodule DBConnection.Holder do
 
       {:DOWN, ^lock, _, _, reason} ->
         {:exit, reason}
+
+      unexpected_message ->
+        msg = "unexpected message received #{inspect(unexpected_message)}"
+        {:error, DBConnection.ConnectionError.exception(msg)}
     end
   end
 
